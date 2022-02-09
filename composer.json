@@ -2,7 +2,7 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
-    "version": "1.0.45",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Stijn Leenknegt",
@@ -11,14 +11,14 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
+            "type": "git",
             "url": "https://github.com/diagro-git/lib_laravel_token.git"
         }
     ],
     "require": {
         "php": "^8.0",
         "laravel/framework":"v8.67.0",
-        "diagro/lib_laravel_token": "^1.0|master",
+        "diagro/lib_laravel_token": "1.0.0",
         "guzzlehttp/guzzle": "^7.4"
     },
     "autoload": {
@@ -41,6 +41,6 @@
             "github.com": "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"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
