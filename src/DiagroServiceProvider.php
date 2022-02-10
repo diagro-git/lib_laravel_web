@@ -1,11 +1,13 @@
 <?php
 namespace Diagro\Web;
 
+use Diagro\API\API;
 use Diagro\Token\ApplicationAuthenticationToken;
 use Diagro\Token\Auth\TokenProvider;
 use Diagro\Web\Controllers\LoginController;
 use Diagro\Web\Controllers\LogoutController;
 use Diagro\Web\Diagro\Cookie;
+use Diagro\Web\Exception\InvalidFrontAppIdException;
 use Diagro\Web\Middleware\Application;
 use Diagro\Web\Middleware\Role;
 use Diagro\Web\Middleware\ValidateDiagroToken;
@@ -17,6 +19,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Cookie as LaravelCookie;
 
 /**
  * Bridge between package and laravel backend application.
@@ -135,6 +138,27 @@ class DiagroServiceProvider extends ServiceProvider
 
         Blade::if('hasRole', function ($role) {
             return \request()->user()->hasRole($role);
+        });
+
+        //API default error handler
+        API::withFail(function($response) {
+            switch($response->status())
+            {
+                case 406: //Invalid token
+                    LaravelCookie::queue('aat', '', -1); //delete the diagro token cookie
+                    redirect('login') //back to the login page bastard!
+                    ->with('preferred-company', request()->user()->company()->id())
+                        ->send();
+                    break;
+                case 400: //Invalid front app id
+                    throw new InvalidFrontAppIdException();
+                case 403: //Unauthorized
+                    abort(403);
+                    break;
+                default:
+                    abort($response->status());
+                    break;
+            }
         });
     }
 
