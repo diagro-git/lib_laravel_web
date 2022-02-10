@@ -5,6 +5,6 @@ return [
 
     'app_name' => env('DIAGRO_APP_NAME', null),
 
-    'diagro_service_uri' => env('DIAGRO_DIAGRO_SERVICE_URI', null)
+    'service_auth_uri' => env('DIAGRO_SERVICE_AUTH_URI', null)
 
 ];
