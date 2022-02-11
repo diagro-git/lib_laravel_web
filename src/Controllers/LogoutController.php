@@ -25,7 +25,7 @@ class LogoutController extends Controller
                 'Authorization' => 'Bearer ' . $token,
                 'X-APP-ID' => config('diagro.app_id'),
                 'Accept' => 'application/json'
-            ])->post(config('diagro.diagro_service_uri') . '/logout');
+            ])->post(config('diagro.service_auth_uri') . '/logout');
 
             if($response->ok()) {
                 Cookie::queue('at', '', -1);
