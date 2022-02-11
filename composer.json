@@ -2,7 +2,7 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
-    "version": "1.1",
+    "version": "1.0",
     "authors": [
         {
             "name": "Stijn Leenknegt",
@@ -11,11 +11,11 @@
     ],
     "repositories": [
         {
-            "type": "git",
+            "type": "vcs",
             "url": "https://github.com/diagro-git/lib_laravel_token.git"
         },
         {
-            "type": "git",
+            "type": "vcs",
             "url": "https://github.com/diagro-git/lib_laravel_api.git"
         }
     ],

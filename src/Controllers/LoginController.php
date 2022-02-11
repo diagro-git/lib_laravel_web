@@ -54,7 +54,7 @@ class LoginController extends Controller
         $response = Http::withHeaders([
             'X-APP-ID' => config('diagro.app_id'),
             'Accept' => 'application/json'
-        ])->post(config('diagro.diagro_service_uri') . '/login', $data);
+        ])->post(config('diagro.service_auth_uri') . '/login', $data);
 
         if($response->ok()) {
             $json = $response->json();
@@ -102,7 +102,7 @@ class LoginController extends Controller
             'Authorization' => 'Bearer ' . $token,
             'X-APP-ID' => config('diagro.app_id'),
             'Accept' => 'application/json'
-        ])->post(config('diagro.diagro_service_uri') . '/company', $company);
+        ])->post(config('diagro.service_auth_uri') . '/company', $company);
 
         if($response->ok()) {
             $json = $response->json();
