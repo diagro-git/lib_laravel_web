@@ -32,7 +32,7 @@ class ValidateDiagroToken
                 'x-app-id' => config('diagro.app_id')
             ];
 
-            $response = Http::withHeaders($headers)->get(config('diagro.diagro_service_uri') . '/validate/token');
+            $response = Http::withHeaders($headers)->get(config('diagro.service_auth_uri') . '/validate/token');
             if(! $response->ok()) {
                 try {
                     Auth::refreshToken($request);
