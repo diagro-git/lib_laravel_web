@@ -13,11 +13,11 @@ Deze bibliotheek wordt gebruikt als basis voor alle frontend webapplicaties in L
 
 ## Development
 
-* Composer: `diagro/lib_laravel_web: "^1.0"`
+* Composer: `diagro/lib_laravel_web: "^1.1"`
 
 ## Production
 
-* Composer: `diagro/lib_laravel_web: "^1.0"`
+* Composer: `diagro/lib_laravel_web: "^1.1"`
 
 ## Changelog
 
