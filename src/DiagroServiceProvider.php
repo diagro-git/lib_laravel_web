@@ -16,10 +16,12 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cookie as LaravelCookie;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Bridge between package and laravel backend application.
@@ -154,10 +156,15 @@ class DiagroServiceProvider extends ServiceProvider
                     throw new InvalidFrontAppIdException();
                 case 403: //Unauthorized
                     abort(403);
-                    break;
+                case 422: //Validation failed
+                    $json = $response->json();
+                    if(Arr::has($json, 'errors')) {
+                        throw ValidationException::withMessages($json['errors']);
+                    } else {
+                        abort($response->status());
+                    }
                 default:
                     abort($response->status());
-                    break;
             }
         });
     }

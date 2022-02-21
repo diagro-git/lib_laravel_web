@@ -21,6 +21,10 @@ Deze bibliotheek wordt gebruikt als basis voor alle frontend webapplicaties in L
 
 ## Changelog
 
+### V1.2
+
+* **Update**: HTTP 422 toegevoegd aan default fail handler.
+
 ### V1.1
 
 * **Feature**: upgrade naar PHP8.1 en laravel 9.0
