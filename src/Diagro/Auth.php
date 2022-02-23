@@ -42,7 +42,7 @@ class Auth
             $headers['x-company-preffered'] = $company;
         }
 
-        $response = Http::withHeaders($headers)->post(config('diagro.diagro_service_uri') . '/login');
+        $response = Http::withHeaders($headers)->post(config('diagro.service_auth_uri') . '/login');
 
         if($response->ok()) {
             $json = $response->json();
