@@ -30,11 +30,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = app(ApplicationAuthenticationToken::class);
-
-            if(empty($user)) {
-                Auth::refreshToken($request);
-            }
+            Auth::refreshToken($request);
         } catch(Exception|InvalidArgumentException $e)
         {
             //if an aat cookie exists, delete it. Will be set again after successfull login

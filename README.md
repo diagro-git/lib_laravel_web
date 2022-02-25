@@ -21,6 +21,10 @@ Deze bibliotheek wordt gebruikt als basis voor alle frontend webapplicaties in L
 
 ## Changelog
 
+### V1.6
+
+* **Update**: revoke AT tokens
+
 ### V1.5
 
 * **Update**: verbeteringen aan cookie en login controller

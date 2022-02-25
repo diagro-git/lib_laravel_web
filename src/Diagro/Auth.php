@@ -66,6 +66,18 @@ class Auth
      */
     private static function clearAT(string $token)
     {
+        //set AT token as invalid
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'X-APP-ID' => config('diagro.app_id'),
+            'Accept' => 'application/json'
+        ];
+        Http::withHeaders($headers)
+            ->put(config('diagro.service_auth_uri') . '/validate/revoke', [
+                'reason' => 'clearAT from trying to refresh AAT token!'
+            ]);
+
+        //other clears
         Cookie::queue('at', '', -1);
         cache()->delete($token);
     }
