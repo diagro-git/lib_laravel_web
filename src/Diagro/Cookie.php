@@ -10,7 +10,7 @@ class Cookie
         $queued = \Illuminate\Support\Facades\Cookie::getQueuedCookies();
         /** @var \Symfony\Component\HttpFoundation\Cookie $cookie */
         foreach($queued as $cookie) {
-            if($cookie->getName() == $name) return true;
+            if($cookie->getName() == $name && ! $cookie->isCleared()) return true;
         }
 
         return false;
@@ -22,7 +22,7 @@ class Cookie
         $queued = \Illuminate\Support\Facades\Cookie::getQueuedCookies();
         /** @var \Symfony\Component\HttpFoundation\Cookie $cookie */
         foreach($queued as $cookie) {
-            if($cookie->getName() == $name) return $cookie;
+            if($cookie->getName() == $name && ! $cookie->isCleared()) return $cookie;
         }
 
         return null;

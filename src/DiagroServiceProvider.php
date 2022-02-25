@@ -88,7 +88,13 @@ class DiagroServiceProvider extends ServiceProvider
         //register the routes
         /** @var Router $router */
         $router = $this->app->make(Router::class);
-        $router->middleware('web')->group(function() use ($router) {
+        $router->middleware([
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+        ])->group(function() use ($router) {
             $router->get('/login', [LoginController::class, 'login'])->name('login');
             $router->post('/login', [LoginController::class, 'loginProcess']);
 

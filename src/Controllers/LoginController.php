@@ -1,6 +1,7 @@
 <?php
 namespace Diagro\Web\Controllers;
 
+use Diagro\Token\ApplicationAuthenticationToken;
 use Diagro\Web\Diagro\Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -29,7 +30,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         try {
-            Auth::refreshToken($request);
+            $user = app(ApplicationAuthenticationToken::class);
+
+            if(empty($user)) {
+                Auth::refreshToken($request);
+            }
         } catch(Exception|InvalidArgumentException $e)
         {
             //if an aat cookie exists, delete it. Will be set again after successfull login

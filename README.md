@@ -21,6 +21,10 @@ Deze bibliotheek wordt gebruikt als basis voor alle frontend webapplicaties in L
 
 ## Changelog
 
+### V1.5
+
+* **Update**: verbeteringen aan cookie en login controller
+
 ### V1.4
 * **Update**: update api lib
 
