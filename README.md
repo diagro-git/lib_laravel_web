@@ -13,13 +13,16 @@ Deze bibliotheek wordt gebruikt als basis voor alle frontend webapplicaties in L
 
 ## Development
 
-* Composer: `diagro/lib_laravel_web: "^1.3"`
+* Composer: `diagro/lib_laravel_web: "^1.4"`
 
 ## Production
 
-* Composer: `diagro/lib_laravel_web: "^1.3"`
+* Composer: `diagro/lib_laravel_web: "^1.4"`
 
 ## Changelog
+
+### V1.4
+* **Update**: update api lib
 
 ### V1.3
 
