@@ -29,6 +29,7 @@ class LogoutController extends Controller
 
             if($response->ok()) {
                 Cookie::queue('at', '', -1);
+                Cookie::queue('pref_company', '', -1);
 
                 if($request->hasCookie('aat')) {
                     Cookie::queue('aat', '', -1);
