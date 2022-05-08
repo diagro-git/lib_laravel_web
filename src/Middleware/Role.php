@@ -1,9 +1,8 @@
 <?php
 namespace Diagro\Web\Middleware;
+use Closure;
 use Diagro\Token\Model\User;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 /**
  * Check if a role isset for the logged in user.

@@ -36,10 +36,8 @@ class Auth
             'Accept' => 'application/json'
         ];
 
-        $cache = cache();
-        if($cache->has($token)) {
-            $company = $cache->get($token);
-            $headers['x-company-preffered'] = $company;
+        if($request->hasCookie('pc')) {
+            $headers['x-company-preffered'] = $request->cookie('pref_company');
         }
 
         $response = Http::withHeaders($headers)->post(config('diagro.service_auth_uri') . '/login');
@@ -52,6 +50,7 @@ class Auth
                     ->send();
             } elseif(isset($json['aat'])) {
                 Cookie::queue('aat', $json['aat'], 60*24*365);
+                Cookie::queue('pref_company', '', -1); //delete previous pref company to be sure.
             }
         } else { //login with the user token failed, so unset all the user token cookie and show form.
             self::clearAT($token);
@@ -79,7 +78,7 @@ class Auth
 
         //other clears
         Cookie::queue('at', '', -1);
-        cache()->delete($token);
+        Cookie::queue('pref_company', '', -1);
     }
 
 

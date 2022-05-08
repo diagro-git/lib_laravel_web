@@ -66,6 +66,7 @@ class LoginController extends Controller
                 return redirect('company');
             } elseif(isset($json['aat'])) {
                 Cookie::queue('aat', $json['aat'], 60*24*365);
+                Cookie::queue('pref_company', '', -1); //delete previous pref company to be sure.
                 return redirect('/');
             }
         }
@@ -108,8 +109,8 @@ class LoginController extends Controller
         if($response->ok()) {
             $json = $response->json();
             if(isset($json['aat'])) {
-                //store the company in cache
-                cache()->put($token, $company['company']);
+                //make the preferred company cookie
+                Cookie::queue('pref_company', $company['company'], 60*24*365);
                 //make the AAT cookie
                 Cookie::queue('aat', $json['aat'], 60*24*365);
                 return redirect('/');
