@@ -36,7 +36,7 @@ class Auth
             'Accept' => 'application/json'
         ];
 
-        if($request->hasCookie('pc')) {
+        if($request->hasCookie('pref_company')) {
             $headers['x-company-preffered'] = $request->cookie('pref_company');
         }
 
