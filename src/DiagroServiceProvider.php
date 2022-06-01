@@ -101,6 +101,8 @@ class DiagroServiceProvider extends ServiceProvider
             $router->get('/company', [LoginController::class, 'company'])->name('company');
             $router->post('/company', [LoginController::class, 'companyProcess']);
 
+            $router->get('/company-change/{id}', [LoginController::class, 'companyChange'])->name('company.change');
+
             $router->get('/logout', [LogoutController::class, 'logout'])->name('logout');
         });
 
