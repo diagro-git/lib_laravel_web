@@ -2,7 +2,10 @@
 namespace Diagro\Web\Diagro;
 
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -20,10 +23,10 @@ class Auth
      * Try to refresh the AAT token when it's invalid.
      *
      * @param Request $request
+     * @return bool|Application|RedirectResponse|Redirector
      * @throws Exception|InvalidArgumentException
-     * @return mixed
      */
-    public static function refreshToken(Request $request)
+    public static function refreshToken(Request $request, ?int $companyPreffered = null): bool|Redirector|Application|RedirectResponse
     {
         if(! $request->hasCookie('at')) {
             throw new Exception("AT cookie not presence");
@@ -36,7 +39,9 @@ class Auth
             'Accept' => 'application/json'
         ];
 
-        if($request->hasCookie('pref_company')) {
+        if($companyPreffered != null) {
+            $headers['x-company-preffered'] = $companyPreffered;
+        } elseif($request->hasCookie('pref_company')) {
             $headers['x-company-preffered'] = $request->cookie('pref_company');
         }
 
@@ -50,6 +55,9 @@ class Auth
                     ->send();
             } elseif(isset($json['aat'])) {
                 Cookie::queue('aat', $json['aat'], 60*24*365);
+                return true;
+            } else {
+                throw new Exception("Invalid auth response!");
             }
         } else { //login with the user token failed, so unset all the user token cookie and show form.
             self::clearAT($token);

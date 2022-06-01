@@ -122,4 +122,17 @@ class LoginController extends Controller
     }
 
 
+    public function companyChange(Request $request, int $id)
+    {
+        try {
+            if(Auth::refreshToken($request, $id) === true) {
+                return redirect('/');
+            }
+        } catch(Exception $e)
+        {
+            return redirect('login');
+        }
+    }
+
+
 }
