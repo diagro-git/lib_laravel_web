@@ -66,7 +66,7 @@ class LoginController extends Controller
                 return redirect('company');
             } elseif(isset($json['aat'])) {
                 Cookie::queue('aat', $json['aat'], 60*24*365);
-                \Diagro\Web\Diagro\Cookie::shared('pref_company', '', -1); //delete previous pref company to be sure.
+                \Diagro\Web\Diagro\Cookie::shared('pref_company', app(ApplicationAuthenticationToken::class)->company()->name(), 60*24*365);
                 return redirect('/');
             }
         }
@@ -126,6 +126,7 @@ class LoginController extends Controller
     {
         try {
             if(Auth::refreshToken($request, $id) === true) {
+                \Diagro\Web\Diagro\Cookie::shared('pref_company', app(ApplicationAuthenticationToken::class)->company()->name(), 60*24*365);
                 return redirect('/');
             }
         } catch(Exception $e)

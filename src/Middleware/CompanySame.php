@@ -28,7 +28,7 @@ class CompanySame
     {
         /** @var ApplicationAuthenticationToken $aat */
         $aat = app(ApplicationAuthenticationToken::class);
-        if($aat != null && $request->hasCookie('pref_company') && $aat->company()?->id() != $request->cookie('pref_company')) {
+        if($aat != null && $request->hasCookie('pref_company') && $aat->company()?->name() != $request->cookie('pref_company')) {
             try {
                 Auth::refreshToken($request);
             } catch(Exception|InvalidArgumentException $e)
