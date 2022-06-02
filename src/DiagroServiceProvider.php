@@ -9,6 +9,7 @@ use Diagro\Web\Controllers\LogoutController;
 use Diagro\Web\Diagro\Cookie;
 use Diagro\Web\Exception\InvalidFrontAppIdException;
 use Diagro\Web\Middleware\Application;
+use Diagro\Web\Middleware\CompanySame;
 use Diagro\Web\Middleware\Role;
 use Diagro\Web\Middleware\ValidateDiagroToken;
 use Exception;
@@ -110,6 +111,7 @@ class DiagroServiceProvider extends ServiceProvider
         $router->aliasMiddleware('application', Application::class);
         $router->aliasMiddleware('role', Role::class);
         $router->aliasMiddleware('validate-token', ValidateDiagroToken::class);
+        $router->aliasMiddleware('company-same', CompanySame::class);
         //validatie van AAT token gebeurt als eerste, nog voor deze gedecodeerd wordt.
         $kernel->prependToMiddlewarePriority(ValidateDiagroToken::class);
 
