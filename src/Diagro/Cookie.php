@@ -29,4 +29,13 @@ class Cookie
     }
 
 
+    public static function shared(string $name, $value, int $minutes)
+    {
+        $domain = request()->getHost();
+        $components = array_slice(explode('.', $domain), -2);
+        $domain = implode('.', $components);
+        \Illuminate\Support\Facades\Cookie::queue($name, $value, $minutes, '/', $domain);
+    }
+
+
 }

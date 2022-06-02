@@ -84,8 +84,8 @@ class Auth
             ]);
 
         //other clears
-        Cookie::queue('at', '', -1);
-        Cookie::queue('pref_company', '', -1);
+        \Diagro\Web\Diagro\Cookie::shared('at', '', -1);
+        \Diagro\Web\Diagro\Cookie::shared('pref_company', '', -1);
     }
 
 

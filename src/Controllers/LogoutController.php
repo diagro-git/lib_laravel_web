@@ -28,8 +28,8 @@ class LogoutController extends Controller
             ])->post(config('diagro.service_auth_uri') . '/logout');
 
             if($response->ok()) {
-                Cookie::queue('at', '', -1);
-                Cookie::queue('pref_company', '', -1);
+                \Diagro\Web\Diagro\Cookie::shared('at', '', -1);
+                \Diagro\Web\Diagro\Cookie::shared('pref_company', '', -1);
 
                 if($request->hasCookie('aat')) {
                     Cookie::queue('aat', '', -1);
