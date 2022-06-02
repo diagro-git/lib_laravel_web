@@ -31,6 +31,7 @@ class CompanySame
         if($aat != null && $request->hasCookie('pref_company') && $aat->company()?->name() != $request->cookie('pref_company')) {
             try {
                 Auth::refreshToken($request);
+                return redirect('/');
             } catch(Exception|InvalidArgumentException $e)
             {
                 return redirect('login');
