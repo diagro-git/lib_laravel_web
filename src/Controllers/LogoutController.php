@@ -39,6 +39,12 @@ class LogoutController extends Controller
             }
         }
 
+        //destroy session
+        if(session()->isStarted()) {
+            session()->flush();
+            session()->regenerate(true);
+        }
+
         return view('diagro::logout');
     }
 
