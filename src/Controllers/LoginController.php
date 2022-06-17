@@ -124,6 +124,13 @@ class LoginController extends Controller
 
     public function companyChange(Request $request, int $id)
     {
+        //destroy session
+        if(session()->isStarted()) {
+            session()->flush();
+            session()->regenerate(true);
+        }
+
+        //fetch newt AAT
         try {
             if(Auth::refreshToken($request, $id) === true) {
                 \Diagro\Web\Diagro\Cookie::shared('pref_company', app(ApplicationAuthenticationToken::class)->company()->name(), 60*24*365);
