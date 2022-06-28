@@ -31,6 +31,7 @@ class MetricService
 
     public function stop(Response $response)
     {
+        $this->response = $response;
         $this->ended_at = hrtime(true);
     }
 
