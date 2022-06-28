@@ -47,6 +47,7 @@ class MetricService
             'request' => [
                 'request' => $this->request->request->all(),
                 'uri' => $this->request->getRequestUri(),
+                'host' => $this->request->getSchemeAndHttpHost(),
                 'cookies' => $this->request->cookies->all(),
                 'headers' => $this->request->headers->all(),
                 'query' => $this->request->query->all(),
