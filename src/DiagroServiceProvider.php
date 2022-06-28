@@ -12,6 +12,7 @@ use Diagro\Web\Middleware\Application;
 use Diagro\Web\Middleware\Companies;
 use Diagro\Web\Middleware\CompanySame;
 use Diagro\Web\Middleware\Localization;
+use Diagro\Web\Middleware\Metric;
 use Diagro\Web\Middleware\Role;
 use Diagro\Web\Middleware\ValidateDiagroToken;
 use Exception;
@@ -114,11 +115,13 @@ class DiagroServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('web', Companies::class);
         $router->pushMiddlewareToGroup('web', CompanySame::class);
         $router->pushMiddlewareToGroup('web', ValidateDiagroToken::class);
+        $router->pushMiddlewareToGroup('web', Metric::class);
         //aliases
         $router->aliasMiddleware('application', Application::class);
         $router->aliasMiddleware('role', Role::class);
         //validatie van AAT token gebeurt als eerste, nog voor deze gedecodeerd wordt.
         $kernel->prependToMiddlewarePriority(ValidateDiagroToken::class);
+        $kernel->prependToMiddlewarePriority(Metric::class);
 
         //blade directives
         Blade::if('can', function ($abilities, $arguments) {
