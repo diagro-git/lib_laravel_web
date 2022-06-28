@@ -2,6 +2,7 @@
 namespace Diagro\Web\Middleware;
 
 use Closure;
+use Diagro\API\API;
 use Diagro\Web\Diagro\MetricService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -26,6 +27,9 @@ class Metric
     {
         $user = $request->user();
         $metric = new MetricService($request, $user?->id(), $user?->company()->id(), $request->header('x-parent-metric'));
+
+        //set request id for API requests
+        API::$metricRequestId = $metric->request_id;
 
         $response = $next($request);
 
