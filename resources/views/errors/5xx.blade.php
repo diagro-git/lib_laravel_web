@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ongeldige applicatie fout!</title>
+    <title>Applicatie fout!</title>
     <script src="https://kit.fontawesome.com/58a6f9de85.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/diagro/img/diagro.ico"/>
@@ -34,7 +34,7 @@
 
         <div class="col-8" style="background:white;padding:60px;border-radius:10px;box-shadow:0 0 14px 0 rgba(0,0,0,0.2);">
 
-            <p class="text-center"><strong>De applicatie is ongeldig.</strong></p>
+            <p class="text-center"><strong>Er is een onverwachte fout gebeurt.</strong></p>
 
             <p class="text-center">Blijft deze fout verschijnen? Neem dan contact op met Diagro.</p>
 
