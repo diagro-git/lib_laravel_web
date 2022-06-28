@@ -12,6 +12,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * Validate if the pref_company cookie is the same value as logged in users company.
+ * If it's not the same, then refresh the AAT token and redirect to the start page.
  *
  * @package App\Http\Middleware
  */

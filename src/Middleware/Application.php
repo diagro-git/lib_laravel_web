@@ -1,5 +1,6 @@
 <?php
 namespace Diagro\Web\Middleware;
+
 use Closure;
 use Diagro\Token\Model\User;
 use Illuminate\Http\Request;
