@@ -2,7 +2,7 @@
 namespace Diagro\Web\Diagro;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
 class MetricService
@@ -53,7 +53,7 @@ class MetricService
                 'method' => $this->request->method()
             ],
             'response' => [
-                'status' => $this->response->status(),
+                'status' => $this->response->getStatusCode(),
                 'headers' => $this->response->headers->all(),
                 'first_100_bytes' => substr($this->response->getContent(), 0, 100),
                 'last_100_bytes' => substr($this->response->getContent(), -100),
