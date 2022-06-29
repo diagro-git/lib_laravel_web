@@ -7,22 +7,24 @@ use Diagro\Token\Auth\TokenProvider;
 use Diagro\Web\Controllers\LoginController;
 use Diagro\Web\Controllers\LogoutController;
 use Diagro\Web\Diagro\Cookie;
+use Diagro\Web\Diagro\MetricService;
 use Diagro\Web\Exception\InvalidFrontAppIdException;
 use Diagro\Web\Middleware\Application;
 use Diagro\Web\Middleware\Companies;
 use Diagro\Web\Middleware\CompanySame;
 use Diagro\Web\Middleware\Localization;
-use Diagro\Web\Middleware\Metric;
 use Diagro\Web\Middleware\Role;
 use Diagro\Web\Middleware\ValidateDiagroToken;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cookie as LaravelCookie;
 use Illuminate\Validation\ValidationException;
@@ -76,9 +78,10 @@ class DiagroServiceProvider extends ServiceProvider
         });
 
         //configuration
-        $this->mergeConfigFrom(__DIR__ . '/../configs/auth.php', 'auth');
         $this->publishes([
-            __DIR__ . '/../configs/diagro.php' => config_path('diagro.php')
+            __DIR__ . '/../configs/diagro.php' => config_path('diagro.php'),
+            __DIR__ . '/../configs/auth.php' => config_path('auth.php'),
+            __DIR__ . '/../configs/logging.php' => config_path('logging.php'),
         ]);
 
         //views
@@ -115,13 +118,20 @@ class DiagroServiceProvider extends ServiceProvider
         $router->pushMiddlewareToGroup('web', Companies::class);
         $router->pushMiddlewareToGroup('web', CompanySame::class);
         $router->pushMiddlewareToGroup('web', ValidateDiagroToken::class);
-        $router->pushMiddlewareToGroup('web', Metric::class);
         //aliases
         $router->aliasMiddleware('application', Application::class);
         $router->aliasMiddleware('role', Role::class);
         //validatie van AAT token gebeurt als eerste, nog voor deze gedecodeerd wordt.
         $kernel->prependToMiddlewarePriority(ValidateDiagroToken::class);
-        $kernel->prependToMiddlewarePriority(Metric::class);
+
+        //metrics
+        $this->app->booted(function() {
+            app(MetricService::class);
+        });
+        Event::listen(RequestHandled::class, function(RequestHandled $event) {
+            app(MetricService::class)->stop($event->request, $event->response);
+            app(MetricService::class)->send();
+        });
 
         //blade directives
         Blade::if('can', function ($abilities, $arguments) {

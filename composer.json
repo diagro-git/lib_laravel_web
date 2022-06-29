@@ -2,7 +2,7 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
-    "version": "2.6.4",
+    "version": "2.7",
     "authors": [
         {
             "name": "Stijn Leenknegt",
@@ -24,7 +24,10 @@
         "laravel/framework":"^9.0",
         "diagro/lib_laravel_token": "^1.0",
         "diagro/lib_laravel_api": "^2.0",
-        "guzzlehttp/guzzle": "^7.4"
+        "guzzlehttp/guzzle": "^7.4",
+        "hedii/laravel-gelf-logger": "^7.1",
+        "illuminate/log": "^9.0",
+        "graylog2/gelf-php": "^1.7"
     },
     "autoload": {
         "psr-4": {
