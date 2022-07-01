@@ -44,6 +44,8 @@ class DiagroServiceProvider extends ServiceProvider
             $token = Diagro\Auth::getDiagroToken();
             return ApplicationAuthenticationToken::createFromToken($token);
         });
+
+        $this->app->singleton(MetricService::class);
     }
 
 
