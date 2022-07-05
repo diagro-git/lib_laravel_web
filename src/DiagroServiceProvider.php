@@ -172,6 +172,25 @@ class DiagroServiceProvider extends ServiceProvider
             return \request()->user()->hasRole($role);
         });
 
+        Blade::directive('number', function ($number) {
+            $locale = auth()->user()->locale();
+            $number ??= 0;
+            return "<?php echo NumberFormatter::create('$locale', NumberFormatter::PATTERN_DECIMAL)->format($number); ?>";
+        });
+
+        Blade::directive('currency', function ($number) {
+            $locale = auth()->user()->locale();
+            $currency = auth()->user()->company()->currency();
+            $number ??= 0;
+            return "<?php echo NumberFormatter::create('$locale', NumberFormatter::CURRENCY)->formatCurrency($number, '$currency'); ?>";
+        });
+
+        Blade::directive('procent', function ($number) {
+            $locale = auth()->user()->locale();
+            $number ??= 0;
+            return "<?php echo NumberFormatter::create('$locale', NumberFormatter::PERCENT)->format($number); ?>";
+        });
+
         //API default error handler
         API::withFail(function($response) {
             switch($response->status())

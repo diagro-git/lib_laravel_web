@@ -2,7 +2,7 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
-    "version": "2.7.1",
+    "version": "2.7.2",
     "authors": [
         {
             "name": "Stijn Leenknegt",
@@ -21,6 +21,7 @@
     ],
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "laravel/framework":"^9.0",
         "diagro/lib_laravel_token": "^1.0",
         "diagro/lib_laravel_api": "^2.0",
