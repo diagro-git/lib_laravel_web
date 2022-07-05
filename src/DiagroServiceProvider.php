@@ -25,6 +25,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cookie as LaravelCookie;
 use Illuminate\Validation\ValidationException;
@@ -216,6 +217,9 @@ class DiagroServiceProvider extends ServiceProvider
                     abort($response->status());
             }
         });
+
+        //enable HTTPS only
+        URL::forceScheme('https');
     }
 
 
