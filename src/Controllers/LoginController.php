@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rule;
-use Psr\SimpleCache\InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * The login controller gives two endpoints:
@@ -41,7 +41,7 @@ class LoginController extends Controller
             return view('diagro::login');
         }
 
-        return back();
+        return redirect('/');
     }
 
 
