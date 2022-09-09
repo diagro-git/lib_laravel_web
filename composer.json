@@ -2,6 +2,7 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
+    "license": "Beerware",
     "version": "2.8",
     "authors": [
         {
