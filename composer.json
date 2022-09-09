@@ -2,21 +2,11 @@
     "name": "diagro/lib_laravel_web",
     "description": "Library for webapplications written in Laravel",
     "type": "library",
-    "version": "2.7.4",
+    "version": "2.8",
     "authors": [
         {
             "name": "Stijn Leenknegt",
             "email": "stijn@diagro.be"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/diagro-git/lib_laravel_token.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/diagro-git/lib_laravel_api.git"
         }
     ],
     "require": {
@@ -45,10 +35,7 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "github-oauth": {
-
-        }
+        "sort-packages": true
     },
     "minimum-stability": "stable",
     "prefer-stable": true

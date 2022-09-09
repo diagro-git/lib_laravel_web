@@ -8,6 +8,7 @@ use Diagro\Web\Controllers\LoginController;
 use Diagro\Web\Controllers\LogoutController;
 use Diagro\Web\Diagro\Cookie;
 use Diagro\Web\Diagro\MetricService;
+use Diagro\Web\Events\CompanyChanged;
 use Diagro\Web\Exception\InvalidFrontAppIdException;
 use Diagro\Web\Middleware\Application;
 use Diagro\Web\Middleware\Companies;
@@ -47,6 +48,14 @@ class DiagroServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(MetricService::class);
+
+        Event::listen(CompanyChanged::class, function(CompanyChanged $event) {
+            //destroy session
+            if(session()->isStarted()) {
+                session()->flush();
+                session()->regenerate(true);
+            }
+        });
     }
 
 

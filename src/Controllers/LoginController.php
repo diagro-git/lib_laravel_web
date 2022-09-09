@@ -3,6 +3,7 @@ namespace Diagro\Web\Controllers;
 
 use Diagro\Token\ApplicationAuthenticationToken;
 use Diagro\Web\Diagro\Auth;
+use Diagro\Web\Events\CompanyChanged;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -124,16 +125,13 @@ class LoginController extends Controller
 
     public function companyChange(Request $request, int $id)
     {
-        //destroy session
-        if(session()->isStarted()) {
-            session()->flush();
-            session()->regenerate(true);
-        }
-
         //fetch newt AAT
         try {
+            $old = \auth()->user()->company();
             if(Auth::refreshToken($request, $id) === true) {
-                \Diagro\Web\Diagro\Cookie::shared('pref_company', app(ApplicationAuthenticationToken::class)->company()->name(), 60*24*365);
+                $new = app(ApplicationAuthenticationToken::class)->company();
+                \Diagro\Web\Diagro\Cookie::shared('pref_company', $new->name(), 60*24*365);
+                CompanyChanged::dispatch($old, $new);
                 return redirect('/');
             }
         } catch(Exception $e)
