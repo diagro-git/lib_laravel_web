@@ -129,7 +129,7 @@ class LoginController extends Controller
         try {
             $old = \auth()->user()->company();
             if(Auth::refreshToken($request, $id) === true) {
-                $new = app(ApplicationAuthenticationToken::class)->company();
+                $new = ApplicationAuthenticationToken::createFromToken(\Diagro\Web\Diagro\Auth::getDiagroToken())->company();
                 \Diagro\Web\Diagro\Cookie::shared('pref_company', $new->name(), 60*24*365);
                 CompanyChanged::dispatch($old, $new);
                 return redirect('/');
