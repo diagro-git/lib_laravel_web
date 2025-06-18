@@ -3,7 +3,7 @@
     "description": "Library for webapplications written in Laravel",
     "type": "library",
     "license": "Beerware",
-    "version": "2.10",
+    "version": "10.0.0",
     "authors": [
         {
             "name": "Stijn Leenknegt",
