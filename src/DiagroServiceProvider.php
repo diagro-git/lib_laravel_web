@@ -68,7 +68,7 @@ class DiagroServiceProvider extends ServiceProvider
     public function boot(Kernel $kernel)
     {
         //add Diagro AAT driver
-        auth()->viaRequest('diagro-aat', function(Request $request) {
+        Auth::viaRequest('diagro-aat', function(Request $request) {
             if(! $request->hasCookie('aat') && ! Cookie::isQueued('aat')) return null;
 
             try {
